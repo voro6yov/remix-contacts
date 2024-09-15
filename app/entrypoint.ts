@@ -1,4 +1,4 @@
 import { ContactService } from "./application";
-import { ContactRepository } from "./infrastructure/repositories";
+import { ReduxContactRepository } from "./infrastructure/repositories";
 
-export const contactService = new ContactService(new ContactRepository());
+export const contactService = new ContactService(new ReduxContactRepository());

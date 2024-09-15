@@ -24,10 +24,9 @@ export const action = async ({
     request,
   }: ActionFunctionArgs) => {
     invariant(params.contactId, "Missing contactId param");
+
     const formData = await request.formData();
-    return contactService.set(params.contactId, {
-      favorite: formData.get("favorite") === "true",
-    });
+    return contactService.mark(params.contactId, formData.get("favorite") === "true");
   };
 
 export default function Contact() {

@@ -4,5 +4,4 @@ export type ContactInfo = {
     avatar?: string;
     twitter?: string;
     notes?: string;
-    favorite?: boolean;
   };

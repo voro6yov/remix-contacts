@@ -11,12 +11,17 @@ export class Contact {
         this.id = id;
         this.createdAt = new Date().toISOString();
     }
-    update_info(first, last, avatar, twitter, notes, favorite) {
+    update_info(first, last, avatar, twitter, notes) {
         this.first = first || this.first;
         this.last = last || this.last;
         this.avatar = avatar || this.avatar;
         this.twitter = twitter || this.twitter;
         this.notes = notes || this.notes;
-        this.favorite = favorite || this.favorite;
+    }
+    markAsFavorite() {
+        this.favorite = true;
+    }
+    markAsNotFavorite() {
+        this.favorite = false;
     }
 }

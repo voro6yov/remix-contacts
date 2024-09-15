@@ -26,15 +26,28 @@ export class ContactService {
     async set(id: string, values: ContactInfo): Promise<Contact> {
         let contact: Contact | null = await this.contactRepository.contactOfId(id);
         invariant(contact !== null, `Contact with id ${id} not found`);
-
+        
         contact.update_info(
             values.first,
             values.last,
             values.avatar,
             values.twitter,
             values.notes,
-            values.favorite
         );
+        
+        await this.contactRepository.save(contact);
+
+        return contact;
+    }
+
+    async mark(id: string, favorite: boolean): Promise<Contact> {
+        let contact: Contact | null = await this.contactRepository.contactOfId(id);
+        invariant(contact !== null, `Contact with id ${id} not found`);
+        if (favorite) {
+            contact.markAsFavorite();
+        } else {
+            contact.markAsNotFavorite();
+        }
         
         await this.contactRepository.save(contact);
 

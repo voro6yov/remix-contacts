@@ -19,7 +19,19 @@ export class ContactService {
     async set(id, values) {
         let contact = await this.contactRepository.contactOfId(id);
         invariant(contact !== null, `Contact with id ${id} not found`);
-        contact.update_info(values.first, values.last, values.avatar, values.twitter, values.notes, values.favorite);
+        contact.update_info(values.first, values.last, values.avatar, values.twitter, values.notes);
+        await this.contactRepository.save(contact);
+        return contact;
+    }
+    async mark(id, favorite) {
+        let contact = await this.contactRepository.contactOfId(id);
+        invariant(contact !== null, `Contact with id ${id} not found`);
+        if (favorite) {
+            contact.markAsFavorite();
+        }
+        else {
+            contact.markAsNotFavorite();
+        }
         await this.contactRepository.save(contact);
         return contact;
     }
